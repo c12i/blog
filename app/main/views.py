@@ -9,6 +9,7 @@ from datetime import datetime
 import bleach
 from .. import db
 from ..requests import get_quote
+from ..email import welcome_message, notification_message
 
 @main.route("/", methods = ["GET", "POST"])
 def index():
@@ -19,6 +20,8 @@ def index():
         new_sub = Subscribers(email = request.form.get("subscriber"))
         db.session.add(new_sub)
         db.session.commit()
+        welcome_message("Thank you for subscribing to the CM blog", 
+                        "email/welcome", new_sub.email)
     return render_template("index.html",
                             posts = posts,
                             quote = quote)
@@ -34,6 +37,8 @@ def post(id):
         new_sub = Subscribers(email = request.form.get("subscriber"))
         db.session.add(new_sub)
         db.session.commit()
+        welcome_message("Thank you for subscribing to the CM blog", 
+                        "email/welcome", new_sub.email)
 
     if comment_form.validate_on_submit():
         comment = comment_form.comment.data
@@ -126,6 +131,9 @@ def profile(id):
         new_sub = Subscribers(email = request.form.get("subscriber"))
         db.session.add(new_sub)
         db.session.commit()
+        welcome_message("Thank you for subscribing to the CM blog", 
+                        "email/welcome", new_sub.email)
+
     return render_template("profile/profile.html",
                             user = user,
                             posts = posts)
