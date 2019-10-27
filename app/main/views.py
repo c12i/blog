@@ -41,7 +41,8 @@ def post(id):
 
     return render_template("post.html",
                             post = post,
-                            comments = comments)
+                            comments = comments,
+                            comment_form = comment_form)
 
 @main.route("/post/<int:id>/update", methods = ["POST", "GET"])
 def edit_post(id):
@@ -66,13 +67,17 @@ def edit_post(id):
                             edit_form = edit_form)
 
 @main.route("/post/new", methods = ["POST", "GET"])
+@login_required
 def new_post():
     post_form = PostForm()
     if post_form.validate_on_submit():
         post_title = post_form.title.data
         post_form.title.data = ""
         post_content = bleach.clean(post_form.post.data, 
-                                    tags = bleach.sanitizer.ALLOWED_TAGS)
+                                    tags = bleach.sanitizer.ALLOWED_TAGS + ["h1", "h2", "h3", "h4",
+                                                                            "h5", "h6", "p", "span",
+                                                                            "div", "br", "em", "strong"
+                                                                            "i", "blockquote", "hr", "a"])
         post_form.post.data = ""
         new_post = Post(post_title = post_title,
                         post_content = post_content,
@@ -87,7 +92,7 @@ def new_post():
 
 @main.route("/profile/<int:id>")
 def profile(id):
-    user = User.query.filter_by(id = id).first
+    user = User.query.filter_by(id = id).first()
     posts = Post.query.filter_by(user_id = id).all()
     return render_template("profile/profile.html",
                             user = user,

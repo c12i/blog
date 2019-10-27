@@ -10,14 +10,13 @@
                     <img src="https://avatars1.githubusercontent.com/u/49271447?s=460&v=4"
                         class="img-responsive" alt="" height="250" width="250">
                 </div>
-                <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        <strong>Jason Davis</strong>
+                        <strong>{{user.first_name}} {{user.last_name}}</strong>
                     </div>
                     <div class="profile-usertitle-job">
-                        Developer
+                        <small>{{user.username}}</small>
                     </div>
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
@@ -34,11 +33,6 @@
                                 <i class="fa fa-user"></i>
                                 Account Settings </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-flag"></i>
-                                Help </a>
-                        </li>
                     </ul>
                 </div>
                 <!-- END MENU -->
@@ -46,32 +40,21 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
+                {%for post in posts%}
                 <div class="post-preview">
                     <a href="post.html">
                         <h2 class="post-title">
-                            Man must explore, and this is exploration at its greatest
+                            {{post.post_title}}
                         </h2>
                         <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
+                            {{post.post_content | truncate(50) | safe}}
                         </h3>
                     </a>
                     <p class="post-meta">Posted by
-                        <a href="#">Start Bootstrap</a>
-                        on September 24, 2019</p>
+                        <a href="#">{{post.posted_by}}</a>
+                        on {{post.posted_at.strftime('%B %d, %Y')}}</p>
                 </div>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Man must explore, and this is exploration at its greatest
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by
-                        <a href="#">Start Bootstrap</a>
-                        on September 24, 2019</p>
-                </div>
+                {%endfor%}
             </div>
         </div>
     </div>

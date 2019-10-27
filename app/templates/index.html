@@ -18,60 +18,22 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
+      {%for post in posts[::-1]%}
       <div class="post-preview">
-        <a href="post.html">
+        <a href="{{url_for('main.post', id = post.id)}}">
           <h2 class="post-title">
-            Man must explore, and this is exploration at its greatest
+            {{post.post_title}}
           </h2>
           <h3 class="post-subtitle">
-            Problems look mighty small from 150 miles up
+            {{post.post_content | truncate (50) | safe}}
           </h3>
         </a>
         <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on September 24, 2019</p>
+          <a href="{{url_for('main.profile', id = post.user_id)}}">{{post.post_by}}</a> on
+          {{post.posted_at.strftime('%B %d, %Y')}}</p>
       </div>
       <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-          </h2>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on September 18, 2019</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Science has not yet mastered prophecy
-          </h2>
-          <h3 class="post-subtitle">
-            We predict too much for the next year and yet far too little for the next ten.
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on August 24, 2019</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Failure is not an option
-          </h2>
-          <h3 class="post-subtitle">
-            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-          </h3>
-        </a>
-        <p class="post-meta">Posted by
-          <a href="#">Start Bootstrap</a>
-          on July 8, 2019</p>
-      </div>
-      <hr>
-
+      {%endfor%}
     </div>
   </div>
 </div>
