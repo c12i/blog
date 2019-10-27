@@ -51,27 +51,27 @@
         {%endif%}
       </ul>
       <div class="form-inline my-2 my-lg-0">
-        <form class="form-inline my-2 my-lg-0" method="POST">
-          <input class="form-control mr-sm-2" type="email" placeholder="Email" name="subscriber">
-          <button class="btn btn-outline-info btn-sm" type="submit" style="padding: 8px;">Subscribe</button>
-        </form>
         <ul class="navbar-nav mr-auto">
           {%if current_user.is_authenticated%}
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Account
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{url_for('main.profile', id = current_user.id)}}">Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a>
-              </div>
-            </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for('main.profile', id = current_user.id)}}">Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a>
+            </div>
+          </li>
           {%else%}
-            <li class="nav-item">
-              <a class="nav-link" href="/authenticate/login">Login</a>
-            </li>
+          <form class="form-inline my-2 my-lg-0" method="POST">
+            <input class="form-control mr-sm-2" type="email" placeholder="Email" name="subscriber">
+            <button class="btn btn-outline-info btn-sm" type="submit" style="padding: 8px;">Subscribe</button>
+          </form>
+          <li class="nav-item">
+            <a class="nav-link" href="/authenticate/login">Login</a>
+          </li>
           {%endif%}
         </ul>
       </div>
