@@ -45,10 +45,12 @@ def post(id):
                             comment_form = comment_form,
                             comment_count = comment_count)
 
-@main.route("/post/<int:id>/delete/comment")
-def delete_comment(id):
+@main.route("/post/<int:id>/<int:comment_id>/delete")
+def delete_comment(id, comment_id):
     post = Post.query.filter_by(id = id).first()
-    Comment.delete_comment(id)
+    comment = Comment.query.filter_by(id = comment_id).first()
+    db.session.delete(comment)
+    db.session.commit()
     return redirect(url_for("main.post", id = post.id))
 
 

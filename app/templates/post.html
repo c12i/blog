@@ -68,7 +68,7 @@
                                         <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i>
                                             Like</a>
                                         {%if current_user.is_authenticated%}
-                                        <a href="{{url_for('main.delete_comment', id = comment.id)}}" class="btn text-white btn-danger disabled"> <i
+                                        <a href="{{url_for('main.delete_comment', id = post.id, comment_id = comment.id)}}" class="btn text-white btn-danger"> <i
                                             class="far fa-trash-alt"></i>
                                         </a>
                                         {%endif%}
