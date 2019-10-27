@@ -18,29 +18,31 @@
                     <div class="profile-usertitle-job">
                         <small>{{user.username}}</small>
                     </div>
+                    {%if user.bio%}
+                    <p>{{user.bio}}</p>
+                    {%else%}
+                    <p>No bio</p>
+                    {%endif%}
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR MENU -->
+                {%if current_user.is_authenticated%}
                 <div class="profile-usermenu sidebar-sticky">
                     <ul class="nav flex-column">
-                        <li class="active nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="fa fa-home"></i>
-                                Overview </a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://codepen.io/jasondavis/pen/jVRwaG?editors=1000">
+                            <a class="nav-link" href="{{url_for('main.update_profile', id = user.id)}}">
                                 <i class="fa fa-user"></i>
                                 Account Settings </a>
                         </li>
                     </ul>
                 </div>
+                {%endif%}
                 <!-- END MENU -->
             </div>
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                {%for post in posts%}
+                {%for post in posts[::-1]%}
                 <div class="post-preview">
                     <a href="post.html">
                         <h2 class="post-title">
@@ -51,7 +53,7 @@
                         </h3>
                     </a>
                     <p class="post-meta">Posted by
-                        <a href="#">{{post.posted_by}}</a>
+                        <a href="/profile/{{post.user_id}}">{{post.post_by}}</a>
                         on {{post.posted_at.strftime('%B %d, %Y')}}</p>
                 </div>
                 {%endfor%}

@@ -97,3 +97,21 @@ def profile(id):
     return render_template("profile/profile.html",
                             user = user,
                             posts = posts)
+
+@main.route("/profile/<int:id>/update")
+def update_profile(id):
+    user = User.query.filter_by(id = id).first()
+    form = UpdateProfile()
+    if form.validate_on_submit():
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.email = form.email.data
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("main.profile", id = id))
+    
+    return render_template("profile/update.html",
+                            user = user,
+                            form = form)

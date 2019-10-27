@@ -20,7 +20,7 @@ class CommentForm(FlaskForm):
 
 class UpdateProfile(FlaskForm):
     first_name = StringField("First name")
-    first_name = StringField("Last Name")
-    bio = TextAreaField("Tell us about yourself")
+    last_name = StringField("Last Name")
+    bio = TextAreaField("Bio")
     email = StringField("Email")
     submit = SubmitField("Update")
