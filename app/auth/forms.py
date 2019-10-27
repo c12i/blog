@@ -5,12 +5,12 @@ from wtforms.validators import Required, Email, EqualTo
 from ..models import User
 
 class SignUpForm(FlaskForm):
-    first_name = StringField("Your Full Name", validators=[Required()])
-    last_name = StringField("Your Full Name", validators=[Required()])
+    first_name = StringField("Your First Name", validators=[Required()])
+    last_name = StringField("Your Last Name", validators=[Required()])
     username = StringField("Your Username", validators=[Required()])
     email = StringField("Your Email Address", validators=[Required(), Email()])
     password = PasswordField("Password", validators=[Required(), 
-                             EqualTo("password_confirm",message="Passwords must match")])
+                             EqualTo("password_confirm", message = "Passwords must match")])
     password_confirm = PasswordField("Confirm Password", validators=[Required()])
     submit = SubmitField("Sign Up")
 

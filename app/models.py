@@ -10,40 +10,21 @@ def user_loader(user_id):
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key = True, unique = True)
+    id = db.Column(db.Integer, primary_key = True)
     first_name = db.Column(db.String(255))
     last_name = db.Column(db.String(255))
-    username = db.Column(db.String(255), primary_key = True, unique = True)
+    username = db.Column(db.String(255), unique = True)
     email = db.Column(db.String(255), unique = True, index = True)
     bio = db.Column(db.String())
-    avatar_path = db.Column(db.String(), primary_key = True, unique = True)
+    avatar_path = db.Column(db.String())
     password_hash = db.Column(db.String(255))
     posts = db.relationship("Post",
-                            foreign_keys = "Post.user_id", 
                             backref = "user",
                             lazy = "dynamic")
-    comments = db.relationship("Comment", 
-                                foreign_keys = "Comment.user_id",
-                                backref = "user",
-                                lazy = "dynamic")
-    post_name = db.relationship("Comment", 
-                                foreign_keys = "Post.username",
-                                backref = "user",
-                                lazy = "dynamic")
-    comment_name = db.relationship("Comment", 
-                                foreign_keys = "Comment.username",
-                                backref = "user",
-                                lazy = "dynamic")
-    post_avatar = db.relationship("Comment", 
-                                foreign_keys = "Post.user_avatar",
-                                backref = "user",
-                                lazy = "dynamic")
-    comment_avatar = db.relationship("Comment", 
-                                foreign_keys = "Comment.user_avatar",
+    comments = db.relationship("Comment",
                                 backref = "user",
                                 lazy = "dynamic")
     liked = db.relationship("PostLike",
-                            foreign_keys = "PostLike.user_id",
                             backref = "user", 
                             lazy = "dynamic")
 
@@ -81,6 +62,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f"User {self.username}"
 
+
 class Post(db.Model):
     __tablename__ = "posts"
 
@@ -91,8 +73,6 @@ class Post(db.Model):
     upvotes = db.Column(db.Integer, default = 0)
     downvotes = db.Column(db.Integer, default = 0)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    posted_by = db.Column(db.String, db.ForeignKey("users.username"))
-    user_avatar = db.Column(db.String, db.ForeignKey("users.avatar_path"))
     comments = db.relationship("Comment", 
                                 foreign_keys = "Comment.post_id", 
                                 backref = "post", 
@@ -108,12 +88,13 @@ class Post(db.Model):
 
     @classmethod
     def get_user_posts(cls,id):
-        posts = Post.query.filter_by(user_id = id).all()
+        posts = Post.query.filter_by(user_id = id).order_by(Post.posted_at.desc()).all()
         return posts
 
     @classmethod
     def get_all_posts(cls):
-        return Post.query.order_by(Post.posted_at.asc()).all()
+        return Post.query.order_by(Post.posted_at).all()
+
 
 class Comment(db.Model):
     __tablename__ = "comments"
@@ -123,8 +104,6 @@ class Comment(db.Model):
     comment_at = db.Column(db.DateTime)
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    posted_by = db.Column(db.String, db.ForeignKey("users.username"))
-    user_avatar = db.Column(db.String, db.ForeignKey("users.avatar_path"))
 
     def save_comment(self):
         db.session.add(self)
@@ -136,14 +115,16 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls,id):
-        comments = Post.query.filter_by(post_id = id).all()
+        comments = Comment.query.filter_by(post_id = id).all()
         return comments
+
 
 class PostLike(db.Model):
     __tablename__ = "post_like"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+
 
 class Quote:
     """

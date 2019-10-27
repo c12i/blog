@@ -5,7 +5,7 @@ from . import auth
 from ..models import User
 from .forms import SignUpForm, LoginForm
 from .. import db
-from ..email import mail_message
+# from ..email import mail_message
 
 @auth.route("/signup", methods = ["GET", "POST"])
 def register():
@@ -19,8 +19,8 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        mail_message("Welcome to 60 seconds",
-                     "email/welcome", user.email, user = user)
+        # mail_message("Welcome to 60 seconds",
+        #              "email/welcome", user.email, user = user)
         return redirect(url_for("auth.login"))
     title = "Sign Up to 60 Seconds"
     return render_template("auth/signup.html", 
