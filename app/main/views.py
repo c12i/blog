@@ -93,7 +93,8 @@ def new_post():
                                     tags = bleach.sanitizer.ALLOWED_TAGS + ["h1", "h2", "h3", "h4",
                                                                             "h5", "h6", "p", "span",
                                                                             "div", "br", "em", "strong"
-                                                                            "i", "blockquote", "hr", "a"])
+                                                                            "i", "blockquote", "hr", "a"
+                                                                            "ul", "ol", "li"])
         post_form.post.data = ""
         new_post = Post(post_title = post_title,
                         post_content = post_content,

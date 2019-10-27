@@ -124,6 +124,12 @@ class Comment(db.Model):
         return comments
 
 
+class Subscribers(db.Model):
+    __tablename__ = "subscribers"
+    id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String(255), unique = True, index = True)
+
+
 class PostLike(db.Model):
     __tablename__ = "post_like"
     id = db.Column(db.Integer, primary_key = True)
