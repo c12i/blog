@@ -7,7 +7,7 @@ from .forms import (UpdateProfile, PostForm,
                     CommentForm, UpdatePostForm)
 from datetime import datetime
 import bleach
-from .. import db, photos
+from .. import db
 from ..requests import get_quote
 
 @main.route("/", methods = ["GET", "POST"])
