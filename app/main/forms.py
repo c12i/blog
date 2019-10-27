@@ -11,12 +11,12 @@ class PostForm(FlaskForm):
 class UpdatePostForm(FlaskForm):
     title = StringField("Blog title", validators=[Required()])
     post = TextAreaField("Type Away", validators=[Required()])
-    submit = SubmitField("Submit")
+    submit = SubmitField("Update")
 
 class CommentForm(FlaskForm):
     comment = TextAreaField("Post Comment", validators=[Required()])
     alias = StringField("Comment Alias")
-    submit = SubmitField("Submit")
+    submit = SubmitField("Comment")
 
 class UpdateProfile(FlaskForm):
     first_name = StringField("First name")

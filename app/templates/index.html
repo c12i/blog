@@ -30,7 +30,8 @@
         </a>
         <p class="post-meta">Posted by
           <a href="{{url_for('main.profile', id = post.user_id)}}">{{post.post_by}}</a> on
-          {{post.posted_at.strftime('%B %d, %Y')}}</p>
+          {{post.posted_at.strftime('%B %d, %Y')}}
+        </p>
       </div>
       <hr>
       {%endfor%}

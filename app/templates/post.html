@@ -9,7 +9,13 @@
                     <h1>{{post.post_title}}</h1>
                     <span class="meta">Posted by
                         <a href="{{url_for('main.profile', id = post.user_id)}}">{{post.post_by}}</a>
-                        on {{post.posted_at.strftime('%B %d, %Y')}}</span>
+                        on {{post.posted_at.strftime('%B %d, %Y')}}
+                    </span>
+                    {%if comment_count == 1%}
+                        <small>{{comment_count}} comment</small>
+                    {%else%}
+                        <small>{{comment_count}} comments</small>
+                    {%endif%}
                 </div>
             </div>
         </div>

@@ -23,6 +23,7 @@ def post(id):
     post = Post.query.filter_by(id = id).first()
     comments = Comment.query.filter_by(post_id = id).all()
     comment_form = CommentForm()
+    comment_count = len(comments)
 
     if comment_form.validate_on_submit():
         comment = comment_form.comment.data
@@ -34,15 +35,15 @@ def post(id):
         new_comment = Comment(comment = comment, 
                             comment_at = datetime.now(),
                             comment_by = comment_alias,
-                            post_id = id,
-                            user_id = current_user.id)
+                            post_id = id)
         new_comment.save_comment()
         return redirect(url_for("main.post", id = post.id))
 
     return render_template("post.html",
                             post = post,
                             comments = comments,
-                            comment_form = comment_form)
+                            comment_form = comment_form,
+                            comment_count = comment_count)
 
 @main.route("/post/<int:id>/update", methods = ["POST", "GET"])
 def edit_post(id):
@@ -50,16 +51,13 @@ def edit_post(id):
     edit_form = UpdatePostForm()
 
     if edit_form.validate_on_submit():
-        post_title = edit_form.title.data
+        post.post_title = edit_form.title.data
         edit_form.title.data = ""
-        post_content = edit_form.post.data
+        post.post_content = edit_form.post.data
         edit_form.post.data = ""
-        new_post = Post(post_title = post_title,
-                        post_content = post_content,
-                        posted_at = datetime.now(),
-                        post_by = current_user.username,
-                        user_id = current_user.id)
-        new_post.save_post()
+        
+        db.session.add(post)
+        db.session.commit()
         return redirect(url_for("main.post", id = post.id))
 
     return render_template("edit_post.html", 

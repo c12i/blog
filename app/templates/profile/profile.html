@@ -27,11 +27,12 @@
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR MENU -->
                 {%if current_user.is_authenticated%}
+                <hr>
                 <div class="profile-usermenu sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link" href="{{url_for('main.update_profile', id = user.id)}}">
-                                <i class="fa fa-user"></i>
+                                <i class="fas fa-user-edit"></i>
                                 Account Settings </a>
                         </li>
                     </ul>
@@ -44,6 +45,9 @@
             <div class="profile-content">
                 {%for post in posts[::-1]%}
                 <div class="post-preview">
+                    <div style="float: right; padding-bottom: 50px">
+                        <a href="{{url_for('main.edit_post', id = post.id)}}" class="btn btn-outline-info btn-sm"><i class="far fa-edit"></i></a>
+                    </div>
                     <a href="post.html">
                         <h2 class="post-title">
                             {{post.post_title}}
@@ -52,9 +56,10 @@
                             {{post.post_content | truncate(50) | safe}}
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by
+                    <div class="post-meta">Posted by
                         <a href="/profile/{{post.user_id}}">{{post.post_by}}</a>
-                        on {{post.posted_at.strftime('%B %d, %Y')}}</p>
+                        on {{post.posted_at.strftime('%B %d, %Y')}}
+                    </div>
                 </div>
                 {%endfor%}
             </div>
