@@ -1,7 +1,7 @@
 from flask import (render_template, request, redirect, 
                    url_for, abort)
 from . import main
-from ..models import User, Comment, Post
+from ..models import User, Comment, Post, Subscribers
 from flask_login import login_required, current_user
 from .forms import (UpdateProfile, PostForm, 
                     CommentForm, UpdatePostForm)
@@ -10,10 +10,15 @@ import bleach
 from .. import db, photos
 from ..requests import get_quote
 
-@main.route("/")
+@main.route("/", methods = ["GET", "POST"])
 def index():
     posts = Post.get_all_posts()
     quote = get_quote()
+
+    if request.method == "POST":
+        new_sub = Subscribers(email = request.form.get("subscriber"))
+        db.session.add(new_sub)
+        db.session.commit()
     return render_template("index.html",
                             posts = posts,
                             quote = quote)
@@ -24,6 +29,11 @@ def post(id):
     comments = Comment.query.filter_by(post_id = id).all()
     comment_form = CommentForm()
     comment_count = len(comments)
+
+    if request.method == "POST":
+        new_sub = Subscribers(email = request.form.get("subscriber"))
+        db.session.add(new_sub)
+        db.session.commit()
 
     if comment_form.validate_on_submit():
         comment = comment_form.comment.data
@@ -111,6 +121,11 @@ def new_post():
 def profile(id):
     user = User.query.filter_by(id = id).first()
     posts = Post.query.filter_by(user_id = id).all()
+
+    if request.method == "POST":
+        new_sub = Subscribers(email = request.form.get("subscriber"))
+        db.session.add(new_sub)
+        db.session.commit()
     return render_template("profile/profile.html",
                             user = user,
                             posts = posts)
