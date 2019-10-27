@@ -114,6 +114,15 @@ def profile(id):
                             user = user,
                             posts = posts)
 
+@main.route("/profile/<int:id>/<int:post_id>/delete")
+@login_required
+def delete_post(id, post_id):
+    user = User.query.filter_by(id = id).first()
+    post = Post.query.filter_by(id = post_id).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for("main.profile", id = user.id))
+
 @main.route("/profile/<int:id>/update", methods = ["POST", "GET"])
 @login_required
 def update_profile(id):

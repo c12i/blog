@@ -48,6 +48,7 @@
                     {%if current_user.is_authenticated%}
                     <div style="float: right; padding-bottom: 50px">
                         <a href="{{url_for('main.edit_post', id = post.id)}}" class="btn btn-outline-info btn-sm"><i class="far fa-edit"></i></a>
+                        <a href="{{url_for('main.delete_post', id = user.id, post_id = post.id)}}" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></a>
                     </div>
                     {%endif%}
                     <a href="post.html">
