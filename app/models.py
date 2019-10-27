@@ -104,6 +104,7 @@ class Comment(db.Model):
     comment = db.Column(db.String)
     comment_at = db.Column(db.DateTime)
     comment_by = db.Column(db.String)
+    like_count = db.Column(db.Integer, default = 0)
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
@@ -111,8 +112,10 @@ class Comment(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def delete_comment(self):
-        db.session.delete(self)
+    @classmethod
+    def delete_comment(cls, id):
+        gone = Comment.query.filter_by(id = id).first()
+        db.session.delete(gone)
         db.session.commit()
 
     @classmethod

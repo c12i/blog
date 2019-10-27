@@ -64,9 +64,12 @@
                                     </div>
                                     <div class="clearfix"></div>
                                     <p>{{comment.comment}}</p>
-                                    <div>
+                                    <div style="margin-right: 10px;">
                                         <a class="float-right btn text-white btn-danger"> <i class="fa fa-heart"></i>
                                             Like</a>
+                                            <a href="{{url_for('main.delete_comment', id = comment.id)}}" class="btn text-white btn-danger"> <i
+                                                class="far fa-trash-alt"></i>
+                                            </a>
                                     </div>
                                 </div>
                             </div>

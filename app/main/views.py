@@ -45,6 +45,13 @@ def post(id):
                             comment_form = comment_form,
                             comment_count = comment_count)
 
+@main.route("/post/<int:id>/delete/comment")
+def delete_comment(id):
+    post = Post.query.filter_by(id = id).first()
+    Comment.delete_comment(id)
+    return redirect(url_for("main.post", id = post.id))
+
+
 @main.route("/post/<int:id>/update", methods = ["POST", "GET"])
 def edit_post(id):
     post = Post.query.filter_by(id = id).first()
@@ -55,7 +62,7 @@ def edit_post(id):
         edit_form.title.data = ""
         post.post_content = edit_form.post.data
         edit_form.post.data = ""
-        
+
         db.session.add(post)
         db.session.commit()
         return redirect(url_for("main.post", id = post.id))
@@ -96,7 +103,7 @@ def profile(id):
                             user = user,
                             posts = posts)
 
-@main.route("/profile/<int:id>/update")
+@main.route("/profile/<int:id>/update", methods = ["POST", "GET"])
 def update_profile(id):
     user = User.query.filter_by(id = id).first()
     form = UpdateProfile()
