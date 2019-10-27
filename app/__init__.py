@@ -15,6 +15,7 @@ photos = UploadSet("photos", IMAGES)
 mail = Mail()
 bootstrap = Bootstrap()
 admin = Admin()
+simple = SimpleMDE()
 
 def create_app(config_name):
     

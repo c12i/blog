@@ -72,6 +72,7 @@ class Post(db.Model):
     posted_at = db.Column(db.DateTime)
     upvotes = db.Column(db.Integer, default = 0)
     downvotes = db.Column(db.Integer, default = 0)
+    post_by = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     comments = db.relationship("Comment", 
                                 foreign_keys = "Comment.post_id", 
@@ -102,6 +103,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     comment = db.Column(db.String)
     comment_at = db.Column(db.DateTime)
+    comment_by = db.Column(db.String)
     post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
