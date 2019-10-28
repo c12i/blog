@@ -110,13 +110,11 @@ def new_post():
                         post_by = current_user.username,
                         user_id = current_user.id)
         new_post.save_post()
-        subs = Subscribers.query.all()
-        for sub in subs:
-            notification_message("New Post Alert!", 
-                            "email/notification", sub.email, 
-                            user_fname = current_user.first_name,
-                            user_lname = current_user.last_name)
-        return redirect(url_for("main.index"))
+        # subs = Subscribers.query.all()
+        # for sub in subs:
+        #     notification_message("New Post Alert!", 
+        #                     "email/notification", sub.email)
+        return redirect(url_for("main.post", id = new_post.id))
     
     return render_template("new_post.html",
                             post_form = post_form)
