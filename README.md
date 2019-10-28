@@ -54,6 +54,18 @@ Just a blog.
 | Writer update a blog post       | Updating the blog post in database    | The blog post will be updated                |
 | Writer delete a comment         | Deleting the blog post in database    | The comment will no longer appear under the post                   |
 
+## Technologies Used
+* Python 3.7.4
+* Flask 1.1.1
+* PostgreSQL 11.5
+* SQLAlchemy
+* HTML5  
+* CSS3
+* Javascript
+* Bootstrap 4.0.0 beta 
+* Font Awesome 5.8.2
+* jQuery 3.4.1
+* Google Font API
 
 ## Requirements
 * This program requires python3.+ (and pip) installed, a guide on how to install python on various platforms can be found [here](https://www.python.org/)
