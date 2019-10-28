@@ -100,7 +100,7 @@ You can provide feedback or raise any issues/ bugs through the following means:
 * murerwacollins@gmail.com
 
 ## Live Site link
-You can view the live application by following this [link]().
+You can view the live application by following this [link](https://collinsm-blog.herokuapp.com/).
 
 ## License
 #### [*GNU License*](LICENSE)
