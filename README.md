@@ -93,7 +93,7 @@ Here is a run through of how to set up the application:
 
 
 ## Known Bugs
-* On creating a new post, a subscribed user wil receive a notification email. However, the page will display an error when redirecting the writer to the post page. This feature has been temporarily disabled due to this
+* On creating a new post, a subscribed user wil receive a notification email. However, the page will display an error when redirecting the writer to the post page. This feature has been temporarily disabled due to this -- FIXED
 
 ## Support and contact details
 You can provide feedback or raise any issues/ bugs through the following means:
