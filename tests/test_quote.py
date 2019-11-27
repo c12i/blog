@@ -1,7 +1,7 @@
 import unittest
 from app.models import Quote
 
-class MovieTest(unittest.TestCase):
+class TestQuote(unittest.TestCase):
     def setUp(self):
         """
         Set up method that will run before every Test
